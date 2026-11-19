@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HowtoGTA – Quick answers for GTA VI players</title>
+<meta name="description" content="Plain-English answers to common GTA VI questions for new and returning players.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌴%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#eaf4f2;--card:#fff;--ink:#0f2a33;--mute:#4d6a72;--line:#c9dcd9;--accent:#d62f6f;--on-accent:#fff;
+  --c0:#0e7c86;--c1:#d62f6f;--c2:#c2410c;--c3:#2563eb;--c4:#7c3aed;--c5:#15803d;--c6:#b45309;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1d26;--card:#12303c;--ink:#e6f2f0;--mute:#9bb8bf;--line:#244553;--accent:#ff7aa8;--on-accent:#0b1d26;
+    --c0:#4fd1db;--c1:#ff7aa8;--c2:#ff9a62;--c3:#7ab0ff;--c4:#b69cff;--c5:#6fdc8c;--c6:#f5b85c;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1d26;--card:#12303c;--ink:#e6f2f0;--mute:#9bb8bf;--line:#244553;--accent:#ff7aa8;--on-accent:#0b1d26;
+  --c0:#4fd1db;--c1:#ff7aa8;--c2:#ff9a62;--c3:#7ab0ff;--c4:#b69cff;--c5:#6fdc8c;--c6:#f5b85c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{padding:28px 0 8px}
+h1{margin:0;font-size:clamp(2rem,8vw,3rem);line-height:1;font-weight:900;letter-spacing:-.03em;font-style:italic}
+h1 span{color:var(--accent)}
+.sub{margin:10px 0 0;color:var(--mute);max-width:52ch}
+.tools{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;border-bottom:1px solid var(--line);
+  top:env(safe-area-inset-top,0px)}
+#q{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+#q:focus{outline:3px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.chips{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chip{flex:none;font:inherit;font-size:.9rem;padding:7px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#count{margin:14px 0 6px;color:var(--mute);font-size:.9rem}
+main{padding-bottom:24px}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--tc);border-radius:10px;padding:16px 16px 14px;margin:0 0 14px}
+.tag{margin:0 0 6px;font-size:.82rem;font-weight:700;color:var(--tc)}
+.card h2{margin:0 0 8px;font-size:1.15rem;line-height:1.3}
+.card p.a{margin:0;white-space:pre-line}
+.chk{margin:12px 0 0;font-size:.82rem;color:var(--mute)}
+#empty{display:none;padding:24px 0;color:var(--mute)}
+footer{border-top:1px solid var(--line);padding:20px 0 32px;font-size:.88rem;color:var(--mute)}
+footer p{margin:0 0 10px}
+footer strong{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){.chip{transition:background .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>HowTo<span>GTA</span></h1>
+    <p class="sub">Straight answers to common GTA VI questions, for first-timers and returning players.</p>
+  </header>
+  <div class="tools">
+    <label for="q" class="sr" style="position:absolute;left:-9999px">Search questions</label>
+    <input id="q" type="search" placeholder="Search questions, answers or topics" autocomplete="off" enterkeyhint="search">
+    <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+  </div>
+  <p id="count" aria-live="polite"></p>
+  <main id="list"></main>
+  <p id="empty">No matches. Try a shorter search or pick another topic.</p>
+  <footer>
+    <p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links. If you buy through them, HowtoGTA may earn a commission at no extra cost to you.</p>
+    <p>HowtoGTA is an unofficial fan site. It is not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Game details can change, so check the “last checked” date on each answer.</p>
+  </footer>
+</div>
+<script>
+// ---- EDIT HERE: default "last checked" date (YYYY-MM-DD). Add a 4th value to any entry to override it.
+var CHECKED="2026-11-16";
+var TAGS=["Basics","Characters & Story","Combat & Weapons","Vehicles & Driving","Heists & Strategy","Map & Exploration","Pro Hacks & Secrets"];
+// Each entry: [tagIndex, question, answer, optionalDate]
+var DATA=[
+[0,"What is the main setting of GTA VI?","GTA VI takes place in the fictional state of Leonida, which is heavily inspired by Florida. The setting features the neon-drenched metropolis of Vice City alongside expansive surrounding regions like swamps, keys, and rural towns."],
+[1,"Who are the main playable protagonists?","The game follows a criminal duo named Jason and Lucia. Their dynamic and loyalty to each other sit at the core of the narrative, and you can switch between them for most of the game."],
+[1,"How does character switching work in GTA VI?","Similar to GTA V, you can freely switch between Jason and Lucia during free-roam and specific cooperative mission moments. However, certain story-driven segments lock your perspective to one character depending on where they are or what they are doing."],
+[0,"How does the new economy work for Jason and Lucia?","The economy separates funds into distinct types: hard-earned cash on hand (which is vulnerable if you are busted or killed), bank funds, and uncleaned loot that needs to be fenced or laundered through specific contacts."],
+[0,"Is there a morality or honor system in GTA VI?","Instead of a traditional binary honor meter, GTA VI tracks your overall criminal profile (ranging from calculated professional to unhinged and aggressive) based on how you handle situations and civilians."],
+[0,"Can I play GTA VI completely solo offline?","Yes, the core story campaign is a rich single-player experience designed to be enjoyed offline, similar to Rockstar’s previous single-player masterpieces."],
+[0,"What platforms is GTA VI launching on?","GTA VI launches on current-generation consoles—PlayStation 5 and Xbox Series X|S."],
+[0,"How big is the GTA VI map compared to GTA V?","The state of Leonida is roughly twice the size of GTA V’s Los Santos and Blaine County map, offering a much denser blend of urban cityscapes and wild terrain."],
+[1,"What is the relationship mechanic between Jason and Lucia?","Jason and Lucia live and work together, but their bond can change dynamically. Neglecting their relationship or making poor choices can affect dialogue, trust, and certain story outcomes, while going on dates or working out together builds rapport."],
+[1,"Can Jason and Lucia communicate when they are apart?","Yes. When separated on different tasks or roaming solo, both characters can text or call each other, and you can arrange meetups or coordinate upcoming jobs."],
+[1,"Do NPCs react differently depending on which character you play?","Yes, the civilian and law enforcement AI reacts contextually to who is approaching, how you are dressed, and whether you are displaying open hostility or friendly behavior (like petting dogs)."],
+[1,"How do side activities affect character stats?","Visiting places like gyms, barbershops, and clothing stores together or separately influences your appearance, stamina, and how characters interact with the world around them."],
+[1,"Can you share items and cash between Jason and Lucia?","Yes, as partners in crime, they share resources and safehouses as you progress through the criminal underworld of Leonida."],
+[1,"Do the protagonists start out as crime lords?","No. Jason and Lucia start out as small-time crooks “with their backs against the wall,” tackling minor crimes and petty thefts before moving up to major heists."],
+[2,"How does weapon carrying work in GTA VI?","Leaning into a more realistic system similar to Red Dead Redemption 2, you cannot carry an entire military arsenal in your pockets. You are limited to a couple of handguns and a primary long gun on your person."],
+[2,"Where do you store extra weapons and gear?","Heavy weapons, extra gear, and loot are stored directly in the trunk of your vehicle. Always plan your loadout before stepping out into a heavy firefight."],
+[2,"How do civilians and police react to open carry?","Walking down the street with a rifle ready will instantly terrify civilians, draw panicked phone calls, and alert law enforcement much faster than hiding your piece."],
+[2,"What is the “Focus” ability in combat?","Combat features a Focus mechanic that slows down time slightly and highlights enemy weak points, letting you target specific body parts or disarm opponents tactically."],
+[2,"Does gunplay feel different from GTA V?","Yes. Weapons carry more physical weight, and recoil is more pronounced, meaning sustained full-auto firing is less accurate unless you control your bursts."],
+[2,"Can you use environmental cover effectively?","Absolutely. Shootouts encourage smart positioning; objects, building layouts, and interior rooms provide dynamic tactical advantages over open-street brawls."],
+[3,"Do cars require fuel in GTA VI?","Yes, vehicles feature a realistic fuel consumption system. You can pull into gas stations to refuel your tank by holding down the interaction button, which also doubles as a spot to patch up minor vehicle damage."],
+[3,"How do you steal modern cars compared to older ones?","Older cars are easy to hotwire or break into, but modern vehicles often feature alarms, digital immobilizers, and GPS trackers that require specialized tools or scanner apps acquired later in the game."],
+[3,"Can you hijack a car while someone is driving it?","Yes, you can pull drivers out of moving vehicles via quick-time event mechanics, though passengers may occasionally fight back or try to pull you back out."],
+[3,"What can you store in a vehicle’s boot (trunk)?","Vehicle boots are multi-purpose: you can use them to store custom clothing loadouts, backup weapons, stolen goods, or even hide and transport targets/people."],
+[3,"Are vehicle physics more realistic?","Driving feels distinct across different terrain types (asphalt, mud, sand, and swamp grass), with enhanced crash animations, heavier steering feedback, and improved high-speed physics."],
+[3,"Does GTA VI feature specialized racing?","Yes, the game introduces dedicated racing modes, including official circuit racing events spread throughout Leonida."],
+[4,"How does the new “Heat” and police system work?","Police AI is drastically smarter. Instead of simple search bubbles, they remember physical descriptions, your clothing, your vehicle type, and the weapons you used during a crime."],
+[4,"What do the different colored star ratings mean?","Solid white: Direct visual contact with police.
+Flashing white: Line of sight lost; they are searching the last known spot.
+Hollow stars: Crime reported, but no direct description of you yet.
+Red stars: Active search area; you’ve escaped immediate sight but are still hunted."],
+[4,"How do you effectively shake a police tail?","To truly lose high heat, you must change your clothes, alter your hairstyle, or switch vehicles entirely so police descriptions no longer match your current appearance."],
+[4,"Why are masks important during robberies?","Wearing a mask before committing a crime stops CCTV cameras and witnesses from logging your face into police databases, preventing a permanent description match."],
+[4,"Can you scout locations before executing a robbery?","Yes! Preparation is heavily rewarded. You can scope out building layouts, check for back exits, locate security cameras to disable them, and find safe codes beforehand to ensure a smooth heist."],
+[4,"What happens if you return to a “Hot” crime zone?","Areas where you recently committed violent crimes or major robberies stay under police surveillance. Walking or driving right back into these active zones too soon will immediately trigger renewed suspicion."],
+[4,"Does splitting up help during police chases?","Yes. If Jason and Lucia split up during a coordinated escape, it can confuse police forces and completely clear a wanted star level."],
+[5,"What are the primary regions of Leonida?","Aside from Vice City, the map includes the Leonida Keys (southern island chain), Grassrivers (swampy Everglades-style wetlands), Port Gellhorn (coastal industrial town), Ambrosia (central refinery region), and Mount Kalaga National Park in the wild forested north."],
+[5,"What kind of wildlife can you find in the Grassrivers?","The wetlands are packed with dynamic wildlife, including dangerous alligators, wading birds, and fish native to southern Florida ecosystems."],
+[5,"Can you use airboats in the swamps?","Yes, navigating the Grassrivers requires flat-bottom airboats to slice through thick marshlands and shallow water channels where standard cars will get stuck."],
+[5,"Are interiors more accessible than in past games?","Rockstar has significantly increased the density of accessible interiors, allowing you to walk through stores, diners, motels, and back-alley businesses with fewer loading barriers."],
+[5,"What are Fences used for on the map?","Fences act as black-market intermediaries. You visit them to sell stolen high-end merchandise, offload precious jewelry, and strip tracking units off hot vehicles."],
+[5,"Can you fast travel or use public transit?","While the game encourages organic exploration across Leonida’s massive highways and back roads, various local transport options and cabs assist with getting around."],
+[5,"Are there hidden collectibles across Leonida?","Yes, completionists can hunt down hidden stashes, unique vehicle parts, stunt jumps, and wildlife tracking entries across every corner of the state."],
+[6,"How do you check off wildlife like in Red Dead Redemption 2?","You can pull out binoculars in the field (such as at the beach or in national parks) to spot and log dozens of unique bird and animal species into your personal field compendium."],
+[6,"Pro Hack: Always keep a backup getaway vehicle","Never rely on a single car for major operations. Park a secondary modified vehicle down a side alley or behind a building in case your primary ride gets disabled or boxed in by police."],
+[6,"How do you handle convenience store robberies cleanly?","Scope the register, wear a mask, keep an eye on civilian witnesses who might pull out phones, and map your escape route through a building’s back exit before the local authorities establish a perimeter."],
+[6,"What is the best way to handle car alarms?","If you smash a modern car window without a proper bypass tool, the loud alarm will immediately trigger civilian panic and alert police nearby. Use stealth or proper unlocking equipment whenever possible."],
+[6,"Pro Tip: Manage your cash deposits","Don’t walk around with all your uncleaned loot and physical cash on hand. Make regular trips to safe locations or ATMs to deposit secure funds so you don’t lose everything upon getting busted."],
+[6,"How do you lose police helicopters quickly?","Helicopters track visual line-of-sight. Ducking under multi-story parking garages, dense forest canopies in Mount Kalaga, or indoor tunnels breaks their search cone instantly."],
+[6,"Pro Hack: Use vehicle boots for extra inventory storage","Treat your vehicle trunk like a mobile armory. Stash extra ammunition, heavy sniper rifles, and change-of-clothes bags so you can adapt your approach mid-operation."],
+[6,"Why should you change clothes after a major heist?","If a witness or cop spotted your shirt and jacket color during a robbery, changing into a completely different outfit at a safehouse or clothing store wipes that visual descriptor from active police lookouts."],
+[6,"How do you maximize character relationship benefits?","Frequently invite Jason or Lucia out for impromptu activities—grabbing food, visiting clubs, or working out together—to unlock unique dual-character dialogue lines and smoother tactical coordination during missions."],
+[6,"Pro Tip: Master the vehicle fuel gauge","Keep an eye on your dashboard fuel meter during long-distance cross-state drives from Vice City up to Mount Kalaga. Running out of gas in the middle of a high-speed cartel chase spells instant disaster."],
+[6,"How do you handle civilian informants?","If a civilian pulls out a phone to record your crime, you can choose to intimidate them to drop the phone or eliminate the threat—though doing so escalates your criminal profile toward “Aggressive” or “Psychopath”"],
+[6,"Pro Hack: Utilize dual escape routes in tight alleys","Vice City and Port Gellhorn are packed with narrow walkways and tight back alleys that police cruisers cannot enter. Memorize these tight paths to easily ditch heavy police cruisers."],
+[6,"Can you refuel electric vehicles differently?","Electric vehicles utilize battery power rather than gasoline, requiring quick-charge stops at designated power stations scattered across urban zones."],
+[6,"What’s the secret to stealth store heists?","Cut the power or disable local surveillance feeds first if possible, wear your face covering beforehand, and use silenced or melee takedowns to avoid triggering a loud alarm."],
+[6,"How do you avoid losing unique weapons?","Because you can only carry a couple of weapons on your body, if your vehicle gets blown up or impounded with your favorite heavy rifle inside, check local impound lots or safehouse weapon lockers to recover your gear."],
+[6,"Pro Strategy: Balance your criminal career profile","Decide early on what kind of player you want to be. Clean, stealthy professional runs yield different black-market contacts and opportunities compared to chaotic, high-violence rampages that keep the entire state of Leonida on high alert."
+]
+];
+
+var list=document.getElementById("list"),qEl=document.getElementById("q"),chipsEl=document.getElementById("chips"),
+    countEl=document.getElementById("count"),emptyEl=document.getElementById("empty"),active=-1;
+
+function fmt(d){
+  var t=new Date(d+"T00:00:00Z");
+  return isNaN(t)?d:t.toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric",timeZone:"UTC"});
+}
+
+var frag=document.createDocumentFragment(),cards=[];
+DATA.forEach(function(r){
+  var el=document.createElement("article");
+  el.className="card";el.style.setProperty("--tc","var(--c"+r[0]+")");
+  var tag=document.createElement("p");tag.className="tag";tag.textContent=TAGS[r[0]];
+  var h=document.createElement("h2");h.textContent=r[1];
+  var a=document.createElement("p");a.className="a";a.textContent=r[2];
+  var c=document.createElement("p");c.className="chk";
+  var d=r[3]||CHECKED,tm=document.createElement("time");tm.dateTime=d;tm.textContent=fmt(d);
+  c.append("Last checked: ",tm);
+  el.append(tag,h,a,c);frag.appendChild(el);
+  cards.push({el:el,tag:r[0],text:(TAGS[r[0]]+" "+r[1]+" "+r[2]).toLowerCase()});
+});
+list.appendChild(frag);
+
+function chip(label,idx){
+  var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=label;
+  b.setAttribute("aria-pressed",idx===active?"true":"false");
+  b.addEventListener("click",function(){active=idx;sync();apply();});
+  b.dataset.i=idx;chipsEl.appendChild(b);
+}
+chip("All",-1);TAGS.forEach(function(t,i){chip(t,i);});
+function sync(){[].forEach.call(chipsEl.children,function(b){b.setAttribute("aria-pressed",+b.dataset.i===active?"true":"false");});}
+
+function apply(){
+  var words=qEl.value.toLowerCase().split(/\s+/).filter(Boolean),n=0;
+  cards.forEach(function(c){
+    var ok=(active<0||c.tag===active)&&words.every(function(w){return c.text.indexOf(w)>-1;});
+    c.el.hidden=!ok;if(ok)n++;
+  });
+  countEl.textContent="Showing "+n+" of "+cards.length+" answers";
+  emptyEl.style.display=n?"none":"block";
+}
+qEl.addEventListener("input",apply);
+apply();
+</script>
+</body>
+</html>
